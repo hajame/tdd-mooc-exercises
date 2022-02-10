@@ -75,22 +75,18 @@ function createApp(database) {
     return reduction;
   }
 
-  function isMonday(date) {
-    return date.getDay() === 1;
+  function isMonday(oldDate) {
+    let date = oldDate.toTemporalInstant().toZonedDateTimeISO("UTC").toPlainDate();
+    return date.dayOfWeek === 1;
   }
 
   function isHoliday(oldDate) {
-    let date = oldDate.toTemporalInstant().toZonedDateTimeISO("UTC").toPlainDate().getISOFields();
+    let date = oldDate.toTemporalInstant().toZonedDateTimeISO("UTC").toPlainDate();
     
     const holidays = database.getHolidays();
     for (let row of holidays) {
-      let holiday = Temporal.PlainDate.from(row.holiday).getISOFields();
-      if (
-        date &&
-        date.isoYear === holiday.isoYear &&
-        date.isoMonth === holiday.isoMonth &&
-        date.isoDay === holiday.isoDay
-      ) {
+      let holiday = Temporal.PlainDate.from(row.holiday);
+      if (date && date.equals(holiday)) {
         return true;
       }
     }
