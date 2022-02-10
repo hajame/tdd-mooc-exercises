@@ -79,15 +79,17 @@ function createApp(database) {
     return date.getDay() === 1;
   }
 
-  function isHoliday(date) {
+  function isHoliday(oldDate) {
+    let date = oldDate.toTemporalInstant().toZonedDateTimeISO("UTC").toPlainDate().getISOFields();
+    
     const holidays = database.getHolidays();
     for (let row of holidays) {
-      let holiday = new Date(row.holiday);
+      let holiday = Temporal.PlainDate.from(row.holiday).getISOFields();
       if (
         date &&
-        date.getFullYear() === holiday.getFullYear() &&
-        date.getMonth() === holiday.getMonth() &&
-        date.getDate() === holiday.getDate()
+        date.isoYear === holiday.isoYear &&
+        date.isoMonth === holiday.isoMonth &&
+        date.isoDay === holiday.isoDay
       ) {
         return true;
       }
