@@ -1,5 +1,6 @@
 import "./polyfills.mjs";
 import express from "express";
+import { Temporal } from "@js-temporal/polyfill";
 
 // Refactor the following code to get rid of the legacy Date class.
 // Use Temporal.PlainDate instead. See /test/date_conversion.spec.mjs for examples.
@@ -82,7 +83,7 @@ function createApp(database) {
   function isHoliday(date) {
     const holidays = database.getHolidays();
     for (let row of holidays) {
-      let holiday = new Date(row.holiday);
+      let holiday = new Temporal.PlainDate.from(row.holiday);
       if (
         date &&
         date.getFullYear() === holiday.getFullYear() &&
