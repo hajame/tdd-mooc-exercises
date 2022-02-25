@@ -25,7 +25,7 @@ function createApp(database) {
 
   function parseDate(dateString) {
     if (dateString) {
-      return new Date(dateString);
+      return new Date(dateString); // starting 3rd run, modifying one line at a time
     }
   }
 
