@@ -80,7 +80,7 @@ function createApp(database) {
       .toTemporalInstant()
       .toZonedDateTimeISO("UTC")
       .toPlainDate();
-    return date.getDay() === 1;
+    return aDate.dayOfWeek === 1;
   }
 
   function isHoliday(date) {
