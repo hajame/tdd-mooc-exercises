@@ -88,15 +88,14 @@ function createApp(database) {
   }
 
   function isHoliday(date) {
-    const aDate = date;
     const holidays = database.getHolidays();
     for (let row of holidays) {
       let aHoliday = Temporal.PlainDate.from(row.holiday);
       if (
-        aDate &&
-        aDate.getISOFields().isoYear === aHoliday.getISOFields().isoYear &&
-        aDate.getISOFields().isoMonth === aHoliday.getISOFields().isoMonth &&
-        aDate.getISOFields().isoDay === aHoliday.getISOFields().isoDay
+        date &&
+        date.getISOFields().isoYear === aHoliday.getISOFields().isoYear &&
+        date.getISOFields().isoMonth === aHoliday.getISOFields().isoMonth &&
+        date.getISOFields().isoDay === aHoliday.getISOFields().isoDay
       ) {
         return true;
       }
