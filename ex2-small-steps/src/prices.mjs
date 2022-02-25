@@ -95,7 +95,7 @@ function createApp(database) {
         aDate &&
         aDate.getISOFields().isoYear === aHoliday.getISOFields().isoYear &&
         aDate.getISOFields().isoMonth === aHoliday.getISOFields().isoMonth &&
-        date.getDate() === aHoliday.getISOFields().isoDay
+        aDate.getISOFields().isoDay === aHoliday.getISOFields().isoDay
       ) {
         return true;
       }
