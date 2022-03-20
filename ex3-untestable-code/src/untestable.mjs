@@ -3,28 +3,37 @@ import fs from "fs";
 let _instance;
 
 export class UntestableSingleton {
+  maximumRandomSeconds;
+
   constructor() {
     if (!_instance) {
       _instance = this;
+      this.maximumRandomSeconds = 10;
     } else {
       return _instance;
     }
   }
 
-  sum(a, b) {
-    return a + b;
+  setMaximumRandomSeconds(newSeconds) {
+    this.maximumRandomSeconds = newSeconds;
   }
 
-  nowPlusRandom(maximumRandomSeconds) {
+  secondsBetweenFileDateAndRandomFuture() {
+    let fileDate = Date.parse(this._readFile());
+    let randomFuture = Date.parse(this._nowPlusRandom());
+    return Math.floor((randomFuture - fileDate) / 1000);
+  }
+
+  _nowPlusRandom() {
     let time = new Date(Date.now());
-    let randomSeconds = Math.floor(Math.random() * maximumRandomSeconds);
+    let randomSeconds = Math.floor(Math.random() * this.maximumRandomSeconds);
     time.setSeconds(time.getSeconds() + randomSeconds);
     return time.toISOString();
   }
 
-  readFile() {
+  _readFile() {
     try {
-      return fs.readFileSync("file.txt", "ascii");
+      return fs.readFileSync("file.txt", "ascii").trim();
     } catch (err) {
       console.log(err);
     }
