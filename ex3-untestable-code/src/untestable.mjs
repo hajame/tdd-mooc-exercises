@@ -1,18 +1,32 @@
 import fs from "fs";
 
-export function sum(a, b) {
-  return a + b;
-}
+let _instance;
 
-export function now() {
-  let time = new Date(Date.now()).toISOString();
-  return time;
-}
+export class UntestableSingleton {
+  constructor() {
+    if (!_instance) {
+      _instance = this;
+    } else {
+      return _instance;
+    }
+  }
 
-export function readFile() {
-  try {
-    return fs.readFileSync("file.txt", "ascii");
-  } catch (err) {
-    console.log(err);
+  sum(a, b) {
+    return a + b;
+  }
+
+  nowPlusRandom(maximumRandomSeconds) {
+    let time = new Date(Date.now());
+    let randomSeconds = Math.floor(Math.random() * maximumRandomSeconds);
+    time.setSeconds(time.getSeconds() + randomSeconds);
+    return time.toISOString();
+  }
+
+  readFile() {
+    try {
+      return fs.readFileSync("file.txt", "ascii");
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

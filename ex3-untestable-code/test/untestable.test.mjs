@@ -1,12 +1,15 @@
 import { expect } from "chai";
-import { sum, readFile, now } from "../src/untestable.mjs";
+import { UntestableSingleton } from "../src/untestable.mjs";
+
+let singleton = new UntestableSingleton();
 
 describe("Testing the untestable", () => {
-  it("Test we depend on time", () => {
-    expect(now()).to.equal(new Date(Date.now()).toISOString());
+  it("Test we depend on randomness and time", () => {
+    expect(singleton.nowPlusRandom(10)).to.equal(
+      new Date(Date.now()).toISOString()
+    );
   });
   it("Test we depend on files", () => {
-    console.log(readFile());
-    expect(readFile()).to.equal(new Date(Date.now()).toISOString());
+    expect(singleton.readFile()).to.equal(new Date(Date.now()).toISOString());
   });
 });
