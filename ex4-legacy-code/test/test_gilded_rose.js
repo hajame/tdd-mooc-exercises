@@ -42,8 +42,10 @@ describe("Gilded Rose", function () {
       const items = gildedRose.updateQuality();
       expect(items[0].quality).to.equal(0);
     });
-    it("50+ quality, 0 sellIn", function () {
-      const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 0, 100)]);
+  });
+  describe("Sulfuras, Hand of Ragnaros", function () {
+    it("0 quality, 0 sellIn", function () {
+      const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", 10, 0)]);
       const items = gildedRose.updateQuality();
       expect(items[0].quality).to.equal(0);
     });
