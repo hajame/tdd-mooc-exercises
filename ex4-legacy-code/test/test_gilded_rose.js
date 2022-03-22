@@ -1,9 +1,9 @@
 var { expect } = require("chai");
 var { Shop } = require("../src/gilded_rose.js");
-var { Item } = require("../src/items/item.js");
+var { ItemBuilder } = require("../src/items/item_builder.js");
 
 function shopWithItem(itemName, bestBeforeDate, quality) {
-  return new Shop([Item.of(itemName, bestBeforeDate, quality)]);
+  return new Shop([ItemBuilder.build(itemName, bestBeforeDate, quality)]);
 }
 
 let shop;
