@@ -1,10 +1,8 @@
 var { Item } = require("./item.js");
 
-class Sulfuras {
+class Sulfuras extends Item {
   constructor(name, sellIn, quality) {
-    this.name = "Sulfuras, Hand of Ragnaros";
-    this.sellIn = sellIn;
-    this.quality = quality;
+    super(name, sellIn, quality);
   }
 
   worsenQuality() {
