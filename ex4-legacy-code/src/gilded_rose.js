@@ -21,20 +21,25 @@ class Item {
         this.quality = this.quality - 1;
       }
     }
-    if (this.name == "Aged Brie" || this.name == "Backstage passes to a TAFKAL80ETC concert") {
-      if (this.quality < 50) {
-        this.quality = this.quality + 1;
-        if (this.name == "Backstage passes to a TAFKAL80ETC concert") {
-          if (this.sellIn < 11) {
-            if (this.quality < 50) {
-              this.quality = this.quality + 1;
-            }
-          }
-          if (this.sellIn < 6) {
-            if (this.quality < 50) {
-              this.quality = this.quality + 1;
-            }
-          }
+    if (this.name == "Aged Brie") {
+      if (this.quality >= 50) {
+        return;
+      }
+      this.quality = this.quality + 1;
+    }
+    if (this.name == "Backstage passes to a TAFKAL80ETC concert") {
+      if (this.quality >= 50) {
+        return;
+      }
+      this.quality = this.quality + 1;
+      if (this.sellIn < 11) {
+        if (this.quality < 50) {
+          this.quality = this.quality + 1;
+        }
+      }
+      if (this.sellIn < 6) {
+        if (this.quality < 50) {
+          this.quality = this.quality + 1;
         }
       }
     }
@@ -74,7 +79,6 @@ class Shop {
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
       let item = this.items[i];
-
       item.worsenQuality();
       item.updateBestBeforeDate();
       item.bestBeforeDateAction();
