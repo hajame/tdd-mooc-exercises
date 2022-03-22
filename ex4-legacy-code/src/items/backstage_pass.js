@@ -7,10 +7,6 @@ class BackstagePass {
     this.quality = quality;
   }
 
-  isSpecialItem() {
-    return true;
-  }
-
   worsenQuality() {
     if (this.quality >= 50) {
       return;

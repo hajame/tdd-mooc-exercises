@@ -7,10 +7,6 @@ class Sulfuras {
     this.quality = quality;
   }
 
-  isSpecialItem() {
-    return true;
-  }
-
   worsenQuality() {
     return;
   }

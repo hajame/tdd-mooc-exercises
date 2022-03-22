@@ -22,14 +22,9 @@ class Item {
     return new Item(name, sellIn, quality);
   }
 
-  isSpecialItem() {
-    return false;
-  }
   worsenQuality() {
-    if (!this.isSpecialItem()) {
-      if (this.quality > 0) {
-        this.quality = this.quality - 1;
-      }
+    if (this.quality > 0) {
+      this.quality = this.quality - 1;
     }
   }
 
@@ -41,10 +36,8 @@ class Item {
     if (this.sellIn >= 0) {
       return;
     }
-    if (!this.isSpecialItem()) {
-      if (this.quality > 0) {
-        this.quality = this.quality - 1;
-      }
+    if (this.quality > 0) {
+      this.quality = this.quality - 1;
     }
   }
 }
