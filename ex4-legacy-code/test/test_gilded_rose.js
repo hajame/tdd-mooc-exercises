@@ -3,7 +3,7 @@ var { Shop } = require("../src/gilded_rose.js");
 var { Item } = require("../src/items/item.js");
 
 function shopWithItem(itemName, bestBeforeDate, quality) {
-  return new Shop([new Item(itemName, bestBeforeDate, quality)]);
+  return new Shop([Item.of(itemName, bestBeforeDate, quality)]);
 }
 
 let shop;

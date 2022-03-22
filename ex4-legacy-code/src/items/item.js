@@ -1,19 +1,21 @@
-class Item {
-  qualityWorseningBehavior;
-  bestBeforeDateBehavior;
+var { Sulfuras } = require("./sulfuras.js");
 
+class Item {
   constructor(name, sellIn, quality) {
     this.name = name;
     this.sellIn = sellIn;
     this.quality = quality;
   }
 
+  static of(name, sellIn, quality) {
+    if (name == "Sulfuras, Hand of Ragnaros") {
+      return new Sulfuras(name, sellIn, quality);
+    }
+    return new Item(name, sellIn, quality);
+  }
+
   isSpecialItem() {
-    return (
-      this.name == "Aged Brie" ||
-      this.name == "Backstage passes to a TAFKAL80ETC concert" ||
-      this.name == "Sulfuras, Hand of Ragnaros"
-    );
+    return this.name == "Aged Brie" || this.name == "Backstage passes to a TAFKAL80ETC concert";
   }
   worsenQuality() {
     if (!this.isSpecialItem()) {
@@ -46,9 +48,7 @@ class Item {
   }
 
   updateBestBeforeDate() {
-    if (this.name != "Sulfuras, Hand of Ragnaros") {
-      this.sellIn = this.sellIn - 1;
-    }
+    this.sellIn = this.sellIn - 1;
   }
 
   bestBeforeDateAction() {
