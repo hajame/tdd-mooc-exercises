@@ -1,8 +1,51 @@
 class Item {
+  qualityWorseningBehavior;
+  bestBeforeDateBehavior;
+
   constructor(name, sellIn, quality) {
     this.name = name;
     this.sellIn = sellIn;
     this.quality = quality;
+  }
+
+  isSpecialItem() {
+    return (
+      this.name == "Aged Brie" ||
+      this.name == "Backstage passes to a TAFKAL80ETC concert" ||
+      this.name == "Sulfuras, Hand of Ragnaros"
+    );
+  }
+  worsenQuality() {
+    if (!this.isSpecialItem()) {
+      if (this.quality > 0) {
+        this.quality = this.quality - 1;
+      }
+    }
+  }
+
+  updateBestBeforeDate() {
+    if (this.name != "Sulfuras, Hand of Ragnaros") {
+      this.sellIn = this.sellIn - 1;
+    }
+  }
+
+  bestBeforeDateAction() {
+    if (this.sellIn >= 0) {
+      return;
+    }
+    if (!this.isSpecialItem()) {
+      if (this.quality > 0) {
+        this.quality = this.quality - 1;
+      }
+    }
+    if (this.name == "Backstage passes to a TAFKAL80ETC concert") {
+      this.quality = this.quality - this.quality;
+    }
+    if (this.name == "Aged Brie") {
+      if (this.quality < 50) {
+        this.quality = this.quality + 1;
+      }
+    }
   }
 }
 
@@ -15,13 +58,8 @@ class Shop {
     for (var i = 0; i < this.items.length; i++) {
       let item = this.items[i];
 
-      if (item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert") {
-        if (item.quality > 0) {
-          if (item.name != "Sulfuras, Hand of Ragnaros") {
-            item.quality = item.quality - 1;
-          }
-        }
-      } else {
+      item.worsenQuality();
+      if (item.name == "Aged Brie" || item.name == "Backstage passes to a TAFKAL80ETC concert") {
         if (item.quality < 50) {
           item.quality = item.quality + 1;
           if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
@@ -38,28 +76,9 @@ class Shop {
           }
         }
       }
-      if (item.name != "Sulfuras, Hand of Ragnaros") {
-        item.sellIn = item.sellIn - 1;
-      }
-      if (item.sellIn < 0) {
-        if (item.name != "Aged Brie") {
-          if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
-            if (item.quality > 0) {
-              if (item.name != "Sulfuras, Hand of Ragnaros") {
-                item.quality = item.quality - 1;
-              }
-            }
-          } else {
-            item.quality = item.quality - item.quality;
-          }
-        } else {
-          if (item.quality < 50) {
-            item.quality = item.quality + 1;
-          }
-        }
-      }
+      item.updateBestBeforeDate();
+      item.bestBeforeDateAction();
     }
-
     return this.items;
   }
 }
