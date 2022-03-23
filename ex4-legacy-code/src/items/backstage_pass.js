@@ -1,10 +1,8 @@
 var { Item } = require("./item.js");
 
-class BackstagePass {
+class BackstagePass extends Item {
   constructor(name, sellIn, quality) {
-    this.name = "Backstage passes to a TAFKAL80ETC concert";
-    this.sellIn = sellIn;
-    this.quality = quality;
+    super(name, sellIn, quality);
   }
 
   worsenQuality() {
@@ -22,10 +20,6 @@ class BackstagePass {
         this.quality = this.quality + 1;
       }
     }
-  }
-
-  updateBestBeforeDate() {
-    this.sellIn = this.sellIn - 1;
   }
 
   bestBeforeDateAction() {

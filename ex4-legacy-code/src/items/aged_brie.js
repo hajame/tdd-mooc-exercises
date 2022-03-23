@@ -1,10 +1,8 @@
 var { Item } = require("./item.js");
 
-class AgedBrie {
+class AgedBrie extends Item {
   constructor(name, sellIn, quality) {
-    this.name = "Aged Brie";
-    this.sellIn = sellIn;
-    this.quality = quality;
+    super(name, sellIn, quality);
   }
 
   worsenQuality() {
@@ -12,10 +10,6 @@ class AgedBrie {
       return;
     }
     this.quality = this.quality + 1;
-  }
-
-  updateBestBeforeDate() {
-    this.sellIn = this.sellIn - 1;
   }
 
   bestBeforeDateAction() {
