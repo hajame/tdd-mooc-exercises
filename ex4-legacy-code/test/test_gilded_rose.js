@@ -10,6 +10,8 @@ function shopWithItem(itemName, sellIn, quality) {
     item = ItemBuilder.buildAgedBrie(itemName, sellIn, quality);
   } else if (itemName == "Backstage passes to a TAFKAL80ETC concert") {
     item = ItemBuilder.buildBackstagePass(itemName, sellIn, quality);
+  } else if (itemName == "Conjured knife") {
+    item = ItemBuilder.buildConjured(itemName, sellIn, quality);
   } else {
     item = ItemBuilder.buildNormal(itemName, sellIn, quality);
   }
