@@ -5,7 +5,7 @@ class BackstagePass extends Item {
     super(name, sellIn, quality);
   }
 
-  worsenQuality() {
+  updateQuality() {
     if (this.quality >= 50) {
       return;
     }
@@ -22,7 +22,7 @@ class BackstagePass extends Item {
     }
   }
 
-  bestBeforeDateAction() {
+  expiryAction() {
     if (this.sellIn >= 0) {
       return;
     }

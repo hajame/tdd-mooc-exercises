@@ -8,9 +8,9 @@ class Shop {
   updateQuality() {
     for (var i = 0; i < this.items.length; i++) {
       let item = this.items[i];
-      item.worsenQuality();
-      item.updateBestBeforeDate();
-      item.bestBeforeDateAction();
+      item.updateQuality();
+      item.updateSellInDate();
+      item.expiryAction();
     }
     return this.items;
   }

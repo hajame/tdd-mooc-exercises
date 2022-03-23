@@ -5,15 +5,15 @@ class Sulfuras extends Item {
     super(name, sellIn, quality);
   }
 
-  worsenQuality() {
+  updateQuality() {
     return;
   }
 
-  updateBestBeforeDate() {
+  updateSellInDate() {
     return;
   }
 
-  bestBeforeDateAction() {
+  expiryAction() {
     return;
   }
 }

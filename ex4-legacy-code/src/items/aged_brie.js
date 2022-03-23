@@ -5,14 +5,14 @@ class AgedBrie extends Item {
     super(name, sellIn, quality);
   }
 
-  worsenQuality() {
+  updateQuality() {
     if (this.quality >= 50) {
       return;
     }
     this.quality = this.quality + 1;
   }
 
-  bestBeforeDateAction() {
+  expiryAction() {
     if (this.sellIn >= 0) {
       return;
     }
