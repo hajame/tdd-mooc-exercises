@@ -22,6 +22,14 @@ describe("Gilded Rose", function () {
       shop = shopWithItem("foo", 30, 0);
       expect(shop.updateQuality()[0].quality).to.equal(0);
     });
+    it("one day before best before date, worsen quality by 1", function () {
+      shop = shopWithItem("foo", 1, 3);
+      expect(shop.updateQuality()[0].quality).to.equal(2);
+    });
+    it("on the best before date, worsen quality by 2", function () {
+      shop = shopWithItem("foo", 0, 3);
+      expect(shop.updateQuality()[0].quality).to.equal(1);
+    });
     it("past best before date, worsen quality by 2", function () {
       shop = shopWithItem("foo", -1, 3);
       expect(shop.updateQuality()[0].quality).to.equal(1);
@@ -40,12 +48,24 @@ describe("Gilded Rose", function () {
       shop = shopWithItem("Aged Brie", 0, 0);
       expect(shop.updateQuality()[0].quality).to.equal(2);
     });
-    it("if 50 quality, quality remains", function () {
+    it("if less than 50 quality, sellIn 1, quality increses by one", function () {
+      shop = shopWithItem("Aged Brie", 1, 48);
+      expect(shop.updateQuality()[0].quality).to.equal(49);
+    });
+    it("if less than 50 quality sellIn 2, quality increses by one", function () {
+      shop = shopWithItem("Aged Brie", 2, 48);
+      expect(shop.updateQuality()[0].quality).to.equal(49);
+    });
+    it("if 50 quality sellIn 0, quality remains", function () {
       shop = shopWithItem("Aged Brie", 0, 50);
       expect(shop.updateQuality()[0].quality).to.equal(50);
     });
+    it("if 50 quality, quality remains", function () {
+      shop = shopWithItem("Aged Brie", 100, 50);
+      expect(shop.updateQuality()[0].quality).to.equal(50);
+    });
     it("if 50+ quality, quality remains", function () {
-      shop = shopWithItem("Aged Brie", 0, 100);
+      shop = shopWithItem("Aged Brie", 100, 100);
       expect(shop.updateQuality()[0].quality).to.equal(100);
     });
   });

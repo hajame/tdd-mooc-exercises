@@ -5,17 +5,11 @@ class Sulfuras extends Item {
     super(name, sellIn, quality);
   }
 
-  updateQuality() {
-    return;
-  }
+  updateQuality() {}
 
-  updateSellInDate() {
-    return;
-  }
+  updateSellInDate() {}
 
-  expiryAction() {
-    return;
-  }
+  expiryAction() {}
 }
 
 module.exports = {

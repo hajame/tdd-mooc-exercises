@@ -1,5 +1,3 @@
-var { Item } = require("./items/item.js");
-
 class Shop {
   constructor(items = []) {
     this.items = items;
