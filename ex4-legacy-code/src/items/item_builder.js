@@ -1,4 +1,5 @@
 var { Item } = require("./item.js");
+var { Conjured } = require("./conjured.js");
 var { Sulfuras } = require("./sulfuras.js");
 var { AgedBrie } = require("./aged_brie.js");
 var { BackstagePass } = require("./backstage_pass.js");
@@ -8,6 +9,10 @@ class ItemBuilder {
 
   static buildNormal(name, sellIn, quality) {
     return new Item(name, sellIn, quality);
+  }
+
+  static buildConjured(name, sellIn, quality) {
+    return new Conjured(name, sellIn, quality);
   }
 
   static buildSulfuras(name, sellIn, quality) {

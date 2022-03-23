@@ -149,30 +149,34 @@ describe("Gilded Rose", function () {
       expect(shop.updateQuality()[0].sellIn).to.equal(100);
     });
   });
-  xdescribe("Conjured", function () {
-    it("0 quality, 0 best before date", function () {
-      shop = shopWithItem("Sulfuras, Hand of Ragnaros", 0, 0);
+  describe("Conjured items", function () {
+    it("before best before date, worsen quality by 2", function () {
+      shop = shopWithItem("Conjured knife", 30, 3);
+      expect(shop.updateQuality()[0].quality).to.equal(1);
+    });
+    it("before best before date, quality does not go below 0", function () {
+      shop = shopWithItem("Conjured knife", 30, 0);
       expect(shop.updateQuality()[0].quality).to.equal(0);
     });
-    it("0 quality, -1 best before date", function () {
-      shop = shopWithItem("Sulfuras, Hand of Ragnaros", -1, 100);
-      expect(shop.updateQuality()[0].quality).to.equal(100);
+    it("one day before best before date, worsen quality by 2", function () {
+      shop = shopWithItem("Conjured knife", 1, 3);
+      expect(shop.updateQuality()[0].quality).to.equal(1);
     });
-    it("100 quality, 0 best before date", function () {
-      shop = shopWithItem("Sulfuras, Hand of Ragnaros", 0, 100);
-      expect(shop.updateQuality()[0].quality).to.equal(100);
+    it("on the best before date, worsen quality by 4", function () {
+      shop = shopWithItem("Conjured knife", 0, 5);
+      expect(shop.updateQuality()[0].quality).to.equal(1);
     });
-    it("0 quality, 100 best before date", function () {
-      shop = shopWithItem("Sulfuras, Hand of Ragnaros", 100, 0);
+    it("past best before date, worsen quality by 4", function () {
+      shop = shopWithItem("Conjured knife", -1, 5);
+      expect(shop.updateQuality()[0].quality).to.equal(1);
+    });
+    it("past best before date, quality does not go below 0", function () {
+      shop = shopWithItem("Conjured knife", -1, 3);
       expect(shop.updateQuality()[0].quality).to.equal(0);
     });
-    it("100 quality, 100 best before date", function () {
-      shop = shopWithItem("Sulfuras, Hand of Ragnaros", 100, 100);
-      expect(shop.updateQuality()[0].quality).to.equal(100);
-    });
-    it("best before date does not advance", function () {
-      shop = shopWithItem("Sulfuras, Hand of Ragnaros", 100, 100);
-      expect(shop.updateQuality()[0].sellIn).to.equal(100);
+    it("best before date advances by one", function () {
+      shop = shopWithItem("Conjured knife", 100, 100);
+      expect(shop.updateQuality()[0].sellIn).to.equal(99);
     });
   });
 });
