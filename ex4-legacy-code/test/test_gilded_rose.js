@@ -2,8 +2,18 @@ var { expect } = require("chai");
 var { Shop } = require("../src/gilded_rose.js");
 var { ItemBuilder } = require("../src/items/item_builder.js");
 
-function shopWithItem(itemName, bestBeforeDate, quality) {
-  return new Shop([ItemBuilder.build(itemName, bestBeforeDate, quality)]);
+function shopWithItem(itemName, sellIn, quality) {
+  let item;
+  if (itemName == "Sulfuras, Hand of Ragnaros") {
+    item = ItemBuilder.buildSulfuras(itemName, sellIn, quality);
+  } else if (itemName == "Aged Brie") {
+    item = ItemBuilder.buildAgedBrie(itemName, sellIn, quality);
+  } else if (itemName == "Backstage passes to a TAFKAL80ETC concert") {
+    item = ItemBuilder.buildBackstagePass(itemName, sellIn, quality);
+  } else {
+    item = ItemBuilder.buildNormal(itemName, sellIn, quality);
+  }
+  return new Shop([item]);
 }
 
 let shop;
@@ -114,6 +124,32 @@ describe("Gilded Rose", function () {
     });
   });
   describe("Sulfuras, Hand of Ragnaros does not weaken", function () {
+    it("0 quality, 0 best before date", function () {
+      shop = shopWithItem("Sulfuras, Hand of Ragnaros", 0, 0);
+      expect(shop.updateQuality()[0].quality).to.equal(0);
+    });
+    it("0 quality, -1 best before date", function () {
+      shop = shopWithItem("Sulfuras, Hand of Ragnaros", -1, 100);
+      expect(shop.updateQuality()[0].quality).to.equal(100);
+    });
+    it("100 quality, 0 best before date", function () {
+      shop = shopWithItem("Sulfuras, Hand of Ragnaros", 0, 100);
+      expect(shop.updateQuality()[0].quality).to.equal(100);
+    });
+    it("0 quality, 100 best before date", function () {
+      shop = shopWithItem("Sulfuras, Hand of Ragnaros", 100, 0);
+      expect(shop.updateQuality()[0].quality).to.equal(0);
+    });
+    it("100 quality, 100 best before date", function () {
+      shop = shopWithItem("Sulfuras, Hand of Ragnaros", 100, 100);
+      expect(shop.updateQuality()[0].quality).to.equal(100);
+    });
+    it("best before date does not advance", function () {
+      shop = shopWithItem("Sulfuras, Hand of Ragnaros", 100, 100);
+      expect(shop.updateQuality()[0].sellIn).to.equal(100);
+    });
+  });
+  xdescribe("Conjured", function () {
     it("0 quality, 0 best before date", function () {
       shop = shopWithItem("Sulfuras, Hand of Ragnaros", 0, 0);
       expect(shop.updateQuality()[0].quality).to.equal(0);

@@ -6,17 +6,20 @@ var { BackstagePass } = require("./backstage_pass.js");
 class ItemBuilder {
   constructor() {}
 
-  static build(name, sellIn, quality) {
-    if (name == "Sulfuras, Hand of Ragnaros") {
-      return new Sulfuras(name, sellIn, quality);
-    }
-    if (name == "Aged Brie") {
-      return new AgedBrie(name, sellIn, quality);
-    }
-    if (name == "Backstage passes to a TAFKAL80ETC concert") {
-      return new BackstagePass(name, sellIn, quality);
-    }
+  static buildNormal(name, sellIn, quality) {
     return new Item(name, sellIn, quality);
+  }
+
+  static buildSulfuras(name, sellIn, quality) {
+    return new Sulfuras(name, sellIn, quality);
+  }
+
+  static buildAgedBrie(name, sellIn, quality) {
+    return new AgedBrie(name, sellIn, quality);
+  }
+
+  static buildBackstagePass(name, sellIn, quality) {
+    return new BackstagePass(name, sellIn, quality);
   }
 }
 
